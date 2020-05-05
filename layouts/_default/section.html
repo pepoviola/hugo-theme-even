@@ -1,7 +1,16 @@
-{{- define "title" }}{{ T "archive" }} - {{ .Site.Title }}{{ end -}}
+{{- define "title" }}
+  {{ if .Title }}
+    {{ .Title }}
+  {{ else }}
+    {{ T "archive" }}
+  {{ end }}
+  - {{ .Site.Title }}
+  {{ end -}}
 
 {{- define "content" }}
 {{- $paginator := .Paginate .Data.Pages.ByDate.Reverse .Site.Params.archivePaginate }}
+  <!-- "{{.Content}}" pulls from the markdown content of the corresponding _index.md -->
+  {{.Content}}
 <section id="archive" class="archive">
   {{- if and (not $paginator.HasPrev) .Site.Params.showArchiveCount }}
     <div class="archive-title">
